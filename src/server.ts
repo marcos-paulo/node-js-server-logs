@@ -15,18 +15,21 @@ app.use(cors());
 verificarSeDiretorioLogsExiste();
 
 app.post("/limparLogs", (req, res) => {
+  console.log("Limpando logs");
   criarArquivosDeLog();
-  return res.status(200);
+  return res.status(200).send();
 });
 
 app.post("/gravarLogs", (req, res) => {
+  console.log("Gravando logs");
   salvarLogs(req.body);
-  return res.status(200);
+  return res.status(200).send();
 });
 
 app.post("/gravarHtml", (req, res) => {
-  identarHtml(req.body.html);
-  return res.status(200);
+  console.log("Gravando HTML");
+  identarHtml({ tag: req.body.tag, htmlNaoIdentado: req.body.html });
+  return res.status(200).send();
 });
 
 app.listen(5000, () => {

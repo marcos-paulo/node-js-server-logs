@@ -13,7 +13,7 @@ export function criarArquivosDeLog(): NomesArquivosLogs {
 
   const nomesAtuais = {
     nomeLogConsole: `./logs/${timestamp}-console-log.txt`,
-    nomeLogHtml: `./logs/${timestamp}-console-html.txt`,
+    nomeLogHtml: `./logs/${timestamp}-console-html.html`,
   };
 
   fs.writeFileSync(

@@ -13,7 +13,27 @@ import { getNomeDosArquivosDeLog } from "./criarArquivo";
  *
  * @param htmlNaoIdentado
  */
-export function identarHtml(htmlNaoIdentado: string) {
+export function identarHtml({
+  tag,
+  htmlNaoIdentado,
+}: {
+  tag?: string;
+  htmlNaoIdentado?: string;
+}) {
+  if (!htmlNaoIdentado) {
+    fs.appendFileSync(
+      getNomeDosArquivosDeLog().nomeLogHtml,
+      [
+        "------------------ HTML ---------------------\n",
+        "TAG: " + tag,
+        "\nNão foi possível identar o HTML, pois o HTML está vazio.\n",
+        "------------------ HTML ---------------------\n",
+      ].join(""),
+      "utf8"
+    );
+    return;
+  }
+
   const htmlAntigo = htmlNaoIdentado
     .replace(/</g, "\n<")
     .replace(/{\n/g, "{")
@@ -51,9 +71,10 @@ export function identarHtml(htmlNaoIdentado: string) {
   fs.appendFileSync(
     getNomeDosArquivosDeLog().nomeLogHtml,
     [
-      "------------------ HTML ---------------------",
-      "\n" + novoHtml + "\n",
-      "------------------ HTML ---------------------",
+      "------------------ HTML ---------------------\n",
+      "TAG: " + tag + "\n",
+      novoHtml,
+      "------------------ HTML ---------------------\n",
     ].join(""),
     "utf8"
   );
